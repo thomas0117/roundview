@@ -1,0 +1,32 @@
+{
+  // 存檔自動格式化
+  "editor.formatOnSave": true,
+
+  // 預設使用 Prettier 做格式化
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+
+  // 各語言指定使用 Prettier（保險一點）
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[javascriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+
+  // 只有專案有 prettier 設定檔時才啟用（避免亂套格式）
+  "prettier.requireConfig": true,
+
+  // 存檔時，讓 ESLint 幫你修一些可以自動修復的東西（未使用變數等）
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit"
+  }
+}
