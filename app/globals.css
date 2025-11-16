@@ -433,3 +433,215 @@ body {
     grid-template-columns: minmax(0, 1fr);
   }
 }
+
+/* ===========================
+   文章列表頁 /articles
+   =========================== */
+
+/* 讓文章列表區塊跟其他 section 有點區別，用淺藍背景 */
+.section.articles-section {
+  background: var(--bg-alt);
+}
+
+/* 區塊標題（最新文章） */
+.section-title {
+  max-width: 1120px;
+  margin: 0 auto 1.5rem;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #173d5a;
+}
+
+/* 文章列表外層：控制寬度置中 */
+.articles-list {
+  max-width: 1120px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+/* 單一文章卡片 */
+.article-card {
+  display: flex;
+  gap: 1rem;
+  padding: 1.25rem 1.4rem;
+  border-radius: 1rem;
+  background: var(--card-bg);
+  border: 1px solid var(--border-subtle);
+  box-shadow: 0 8px 20px rgba(15, 23, 42, 0.08);
+}
+
+/* 封面圖 */
+.article-cover {
+  flex-shrink: 0;
+}
+
+.article-cover img {
+  width: 180px;
+  height: 110px;
+  object-fit: cover;
+  border-radius: 0.75rem;
+}
+
+/* 文字內容區 */
+.article-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 文章標題 */
+.article-title {
+  margin: 0 0 0.25rem;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.article-title a {
+  color: #173d5a;
+  text-decoration: none;
+}
+
+.article-title a:hover {
+  text-decoration: underline;
+}
+
+/* 日期（沿用既有 .article-meta，但這裡再微調一下） */
+.articles-list .article-meta {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-bottom: 0.5rem;
+}
+
+/* 摘要 */
+.article-excerpt {
+  font-size: 0.95rem;
+  color: var(--text-main);
+  margin-bottom: 0.75rem;
+}
+
+/* 「繼續閱讀」連結，做成小 pill 按鈕感 */
+.article-more {
+  align-self: flex-end;
+  margin-top: auto;
+  font-size: 0.9rem;
+  text-decoration: none;
+  padding: 0.3rem 0.9rem;
+  border-radius: 999px;
+  border: 1px solid rgba(56, 189, 248, 0.7);
+  background: rgba(56, 189, 248, 0.08);
+  color: #0284c7;
+}
+
+.article-more:hover {
+  background: rgba(56, 189, 248, 0.16);
+}
+
+/* 手機版，卡片改成直向排版，圖片變滿版上方 */
+@media (max-width: 768px) {
+  .article-card {
+    flex-direction: column;
+  }
+
+  .article-cover img {
+    width: 100%;
+    height: 180px;
+  }
+
+  .article-more {
+    align-self: flex-start;
+  }
+}
+
+/* ===========================
+   文章內頁 /articles/[slug]
+   =========================== */
+
+.section.article-detail {
+  background: var(--bg);
+}
+
+.article-detail-inner {
+  max-width: 760px;
+  margin: 0 auto;
+  background: #ffffff;
+  border-radius: 1.2rem;
+  padding: 2.5rem 2rem;
+  border: 1px solid var(--border-subtle);
+  box-shadow: 0 10px 26px rgba(15, 23, 42, 0.08);
+}
+
+/* 內頁標題 */
+.article-detail-title {
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 0 0 0.5rem;
+  color: #173d5a;
+}
+
+/* 內頁日期 */
+.article-detail-meta {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  margin-bottom: 1.5rem;
+}
+
+/* 內頁封面圖 */
+.article-detail-cover {
+  margin-bottom: 1.75rem;
+}
+
+.article-detail-cover img {
+  width: 100%;
+  max-height: 420px;
+  object-fit: cover;
+  border-radius: 1rem;
+}
+
+/* 內文段落排版（你現在是用 \n 分段） */
+.article-detail-content p {
+  font-size: 1rem;
+  line-height: 1.9;
+  color: var(--text-main);
+  margin-bottom: 1rem;
+}
+
+/* 預留之後如果 content 變 HTML/Markdown 有標題時的樣式 */
+.article-detail-content h2 {
+  font-size: 1.4rem;
+  margin: 1.8rem 0 0.8rem;
+  font-weight: 600;
+}
+
+.article-detail-content h3 {
+  font-size: 1.2rem;
+  margin: 1.4rem 0 0.6rem;
+  font-weight: 600;
+}
+
+.article-detail-content ul,
+.article-detail-content ol {
+  padding-left: 1.2rem;
+  margin-bottom: 1rem;
+}
+
+.article-detail-content li {
+  line-height: 1.8;
+}
+
+/* 手機版內頁 padding 收斂一點 */
+@media (max-width: 768px) {
+  .article-detail-inner {
+    padding: 1.8rem 1.3rem;
+  }
+
+  .article-detail-title {
+    font-size: 1.7rem;
+  }
+}
+
+/* 確保 logo 不會有底線動畫 */
+.logo {
+  text-decoration: none !important;
+}
