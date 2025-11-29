@@ -4,11 +4,11 @@ import Link from 'next/link';
 import { useState } from 'react';
 
 const navItems = [
-  { label: '總覽', href: '/#overview' },
-  { label: '暖化指標', href: '/#indicators' },
-  { label: '國家比較', href: '/#countries' },
-  { label: '專題文章', href: '/#articles' },
-  { label: '關於 ROUNDVIEW', href: '/#about' },
+  { label: '總覽', href: '/overview' },
+  { label: '暖化指標', href: '/indicators' },
+  { label: '國家比較', href: '/countries' },
+  { label: '專題文章', href: '/articles' },
+  { label: '關於 ROUNDVIEW', href: '/about' },
 ];
 
 export default function Header() {
