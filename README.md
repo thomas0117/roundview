@@ -22,9 +22,11 @@ npm run dev
 
 ## 管理員新增文章
 
-- 造訪 `/admin` 可看到「管理員專區」。
-- 請輸入後端設定的 `ADMIN_SECRET`，再填寫文章的標題、Slug、摘要、首圖、內文與發佈狀態。
-- 送出後，後端會透過 Supabase Service Role 把資料寫入 `posts` 表，並立即反映在 `/articles` 列表與文章詳細頁。
+1. 確認伺服器端的 `.env.local` 已經設定好 `ADMIN_SECRET` 並重新啟動服務。
+2. 在瀏覽器直接前往 `/admin`，即可看到「管理員專區」表單。
+3. 於頁面頂部輸入後端設定的 `ADMIN_SECRET`（此密鑰不會顯示在前端程式碼）。
+4. 填寫文章的標題、Slug、摘要、首圖、內文、發佈日期與發佈狀態後提交。
+5. 送出後，後端會透過 Supabase Service Role 把資料寫入 `posts` 表，並立即反映在 `/articles` 列表與文章詳細頁。
 
 > **注意：**
 > - `ADMIN_SECRET` 不會輸出到前端程式碼，請透過安全的方式提供給管理員。
