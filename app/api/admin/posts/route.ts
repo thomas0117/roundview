@@ -92,14 +92,9 @@ async function uploadCoverImage(file: File, slug: string) {
     return { error: '上傳首圖失敗，請稍後再試。' };
   }
 
-  const { data: publicUrlData, error: publicUrlError } = supabaseAdmin.storage
+  const { data: publicUrlData } = supabaseAdmin.storage
     .from('article-covers')
     .getPublicUrl(filePath);
-
-  if (publicUrlError || !publicUrlData?.publicUrl) {
-    console.error('[AdminUploadCover] Supabase public URL error:', publicUrlError?.message);
-    return { error: '取得首圖網址失敗。' };
-  }
 
   return { publicUrl: publicUrlData.publicUrl };
 }
