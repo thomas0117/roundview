@@ -7,7 +7,7 @@ export const revalidate = 60; // ISR：60 秒重新抓一次（可調）
 export default async function ArticlesPage() {
   const { data: posts, error } = await supabase
     .from('posts')
-    .select('id, title, slug, excerpt, summary, cover_image, category, published_at, created_at')
+    .select('id, title, slug, excerpt, cover_image, category, published_at, created_at')
     .eq('is_published', true)
     .order('published_at', { ascending: false });
 
