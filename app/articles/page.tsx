@@ -1,14 +1,13 @@
 // app/articles/page.tsx
 import { supabase } from '@/lib/supabaseClient';
-import Link from 'next/link';
-import Image from 'next/image';
+import ArticleGrid from '../components/ArticleGrid';
 
 export const revalidate = 60; // ISR：60 秒重新抓一次（可調）
 
 export default async function ArticlesPage() {
   const { data: posts, error } = await supabase
     .from('posts')
-    .select('id, title, slug, excerpt, cover_image, published_at')
+    .select('id, title, slug, excerpt, summary, cover_image, category, published_at, created_at')
     .eq('is_published', true)
     .order('published_at', { ascending: false });
 
@@ -35,42 +34,7 @@ export default async function ArticlesPage() {
     <section className="section articles-section">
       <h1 className="section-title">最新文章</h1>
 
-      <div className="articles-list">
-        {posts.map((post) => (
-          <article key={post.id} className="article-card">
-            {post.cover_image && (
-              <div className="relative w-full h-64">
-                {post.cover_image && (
-                  <Image
-                    src={post.cover_image}
-                    alt={post.title}
-                    fill
-                    className="object-cover rounded-lg"
-                  />
-                )}
-              </div>
-            )}
-
-            <div className="article-content">
-              <h2 className="article-title">
-                <Link href={`/articles/${post.slug}`}>{post.title}</Link>
-              </h2>
-
-              {post.published_at && (
-                <p className="article-meta">
-                  {new Date(post.published_at).toLocaleDateString('zh-TW')}
-                </p>
-              )}
-
-              {post.excerpt && <p className="article-excerpt">{post.excerpt}</p>}
-
-              <Link href={`/articles/${post.slug}`} className="article-more">
-                繼續閱讀 →
-              </Link>
-            </div>
-          </article>
-        ))}
-      </div>
+      <ArticleGrid posts={posts} />
     </section>
   );
 }
