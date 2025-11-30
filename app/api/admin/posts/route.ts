@@ -3,6 +3,28 @@ import { NextResponse } from 'next/server';
 
 const ADMIN_SECRET = process.env.ADMIN_SECRET;
 
+type PostRow = {
+  id: number;
+  title: string;
+  slug: string;
+  excerpt: string | null;
+  cover_image: string | null;
+  content: string;
+  published_at: string | null;
+  is_published: boolean;
+};
+
+type AdminPost = {
+  id: number;
+  title: string;
+  slug: string;
+  excerpt: string | null;
+  coverImage: string | null;
+  content: string;
+  publishedAt: string | null;
+  isPublished: boolean;
+};
+
 function unauthorized(message = 'Unauthorized') {
   return NextResponse.json({ error: message }, { status: 401 });
 }
@@ -15,7 +37,7 @@ function serverMisconfigured() {
   );
 }
 
-function normalizePost(row: any) {
+function normalizePost(row: PostRow): AdminPost {
   return {
     id: row.id,
     title: row.title,
