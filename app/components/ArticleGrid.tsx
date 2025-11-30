@@ -2,17 +2,14 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 export type ArticleGridPost = {
-  id: string;
+  id: string | number;
   slug?: string | null;
   title: string;
   excerpt?: string | null;
-  summary?: string | null;
   cover_image?: string | null;
-  coverUrl?: string | null;
-  category?: string | null;
+  tags?: string[] | null;
   published_at?: string | null;
   created_at?: string | null;
-  createdAt?: string | null;
 };
 
 interface ArticleGridProps {
@@ -29,10 +26,11 @@ export default function ArticleGrid({ posts }: ArticleGridProps) {
   return (
     <div className="articles-grid">
       {posts.map((post) => {
-        const cover = post.cover_image ?? post.coverUrl;
-        const date = post.published_at ?? post.createdAt ?? post.created_at;
+        const cover = post.cover_image;
+        const date = post.published_at ?? post.created_at;
         const href = post.slug ? `/articles/${post.slug}` : `/posts/${post.id}`;
-        const excerpt = post.excerpt ?? post.summary;
+        const primaryTag = post.tags?.[0];
+        const excerpt = post.excerpt;
 
         return (
           <Link key={post.id} href={href} className="article-card-grid">
@@ -53,9 +51,7 @@ export default function ArticleGrid({ posts }: ArticleGridProps) {
 
             <div className="article-card-grid__body">
               <div className="article-card-grid__meta">
-                <span className="article-card-grid__category">
-                  {post.category || '未分類'}
-                </span>
+                <span className="article-card-grid__category">{primaryTag || '未分類'}</span>
                 {date && <span className="article-card-grid__date">{formatDate(date)}</span>}
               </div>
 
