@@ -62,15 +62,17 @@ export default async function ArticlePage({ params }: { params: Promise<ArticleP
         )}
 
         {post.cover_image && (
-          <div className="relative w-full h-64">
-            {post.cover_image && (
-              <Image
-                src={post.cover_image}
-                alt={post.title}
-                fill
-                className="object-cover rounded-lg"
-              />
-            )}
+          <div className="article-detail-cover">
+            <Image
+              src={post.cover_image}
+              alt={post.title}
+              width={1200}
+              height={800}
+              className="article-detail-cover__image"
+              sizes="(min-width: 768px) 720px, 100vw"
+              priority={false}
+              style={{ height: 'auto' }}
+            />
           </div>
         )}
 

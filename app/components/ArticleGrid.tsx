@@ -41,7 +41,7 @@ export default function ArticleGrid({ posts }: ArticleGridProps) {
                   alt={post.title}
                   fill
                   sizes="(min-width: 768px) 33vw, 100vw"
-                  className="object-cover"
+                  className="article-card-grid__image"
                   priority={false}
                 />
               ) : (
