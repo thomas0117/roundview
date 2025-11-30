@@ -1,5 +1,6 @@
 // app/articles/[slug]/page.tsx
 import { supabase } from '@/lib/supabaseClient';
+import Image from 'next/image';
 import { notFound } from 'next/navigation';
 
 type ArticlePageParams = {
@@ -62,7 +63,13 @@ export default async function ArticlePage({ params }: { params: Promise<ArticleP
 
         {post.cover_image && (
           <div className="article-detail-cover">
-            <img src={post.cover_image} alt={post.title} />
+            <Image
+              src={post.cover_image}
+              alt={post.title}
+              width={1200}
+              height={630}
+              className="article-detail-cover-img"
+            />
           </div>
         )}
 

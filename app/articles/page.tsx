@@ -1,5 +1,6 @@
 // app/articles/page.tsx
 import { supabase } from '@/lib/supabaseClient';
+import Image from 'next/image';
 import Link from 'next/link';
 
 export const revalidate = 60; // ISR：60 秒重新抓一次（可調）
@@ -39,7 +40,13 @@ export default async function ArticlesPage() {
           <article key={post.id} className="article-card">
             {post.cover_image && (
               <div className="article-cover">
-                <img src={post.cover_image} alt={post.title} />
+                <Image
+                  src={post.cover_image}
+                  alt={post.title}
+                  width={180}
+                  height={110}
+                  className="article-cover-img"
+                />
               </div>
             )}
 
