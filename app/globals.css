@@ -748,6 +748,72 @@ body {
   transform: translateY(-1px);
 }
 
+.admin-token-row {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-end;
+  margin-bottom: 1.5rem;
+}
+
+.admin-token-row .token-label {
+  flex: 1;
+}
+
+.admin-form-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: -0.25rem;
+}
+
+.admin-list {
+  margin-top: 1.25rem;
+}
+
+.admin-list-item {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+.admin-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.btn-danger {
+  border: 1px solid #e5484d;
+  color: #e5484d;
+  background: #fff5f5;
+  padding: 0.55rem 0.9rem;
+  border-radius: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.btn-danger:hover {
+  background: #e5484d;
+  color: #ffffff;
+}
+
+@media (max-width: 640px) {
+  .admin-token-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .admin-list-item {
+    flex-direction: column;
+  }
+
+  .admin-actions {
+    width: 100%;
+    justify-content: flex-end;
+  }
+}
+
 @media (max-width: 640px) {
   .admin-card {
     padding: 1.5rem;
