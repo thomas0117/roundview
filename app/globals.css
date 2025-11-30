@@ -1,4 +1,22 @@
 :root {
+  /* 基礎排版修正，避免寬度超出視窗而產生橫向捲軸 */
+  box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+html,
+body {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+:root {
   /* 顏色主題：淡藍 + 白 + 一點點薄荷綠 */
   --bg: #f6fbff; /* 很淡的藍白 */
   --bg-alt: #e5f5ff; /* 淺藍區塊背景 */
@@ -23,6 +41,8 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  min-width: 0;
+  width: 100%;
 }
 
 /* Header / 導覽列 */
