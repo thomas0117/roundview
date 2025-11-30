@@ -63,6 +63,47 @@ function requireAdmin(req: Request) {
   return null;
 }
 
+function getString(formData: FormData, key: string) {
+  const value = formData.get(key);
+  return typeof value === 'string' ? value.trim() : null;
+}
+
+function getFile(formData: FormData, key: string) {
+  const value = formData.get(key);
+  return value instanceof File && value.size > 0 ? value : null;
+}
+
+function generateCoverPath(slug: string, fileName: string) {
+  const safeSlug = slug.replace(/[^a-zA-Z0-9-_]/g, '') || 'post';
+  const extension = fileName.split('.').pop();
+  const safeExt = extension ? extension.replace(/[^a-zA-Z0-9]/g, '') : 'jpg';
+  return `covers/${safeSlug}-${Date.now()}.${safeExt}`;
+}
+
+async function uploadCoverImage(file: File, slug: string) {
+  const filePath = generateCoverPath(slug, file.name || 'cover.jpg');
+
+  const { error: uploadError } = await supabaseAdmin.storage
+    .from('article-covers')
+    .upload(filePath, file, { contentType: file.type || 'application/octet-stream' });
+
+  if (uploadError) {
+    console.error('[AdminUploadCover] Supabase Storage error:', uploadError.message);
+    return { error: '上傳首圖失敗，請稍後再試。' };
+  }
+
+  const { data: publicUrlData, error: publicUrlError } = supabaseAdmin.storage
+    .from('article-covers')
+    .getPublicUrl(filePath);
+
+  if (publicUrlError || !publicUrlData?.publicUrl) {
+    console.error('[AdminUploadCover] Supabase public URL error:', publicUrlError?.message);
+    return { error: '取得首圖網址失敗。' };
+  }
+
+  return { publicUrl: publicUrlData.publicUrl };
+}
+
 export async function GET(req: Request) {
   const authError = requireAdmin(req);
   if (authError) return authError;
@@ -84,12 +125,27 @@ export async function POST(req: Request) {
   const authError = requireAdmin(req);
   if (authError) return authError;
 
-  const payload = await req.json();
+  const formData = await req.formData();
 
-  const { title, slug, excerpt, coverImage, content, publishedAt, isPublished = true } = payload;
+  const title = getString(formData, 'title');
+  const slug = getString(formData, 'slug');
+  const excerpt = getString(formData, 'excerpt');
+  const content = getString(formData, 'content');
+  const publishedAt = getString(formData, 'publishedAt');
+  const isPublished = getString(formData, 'isPublished') !== 'false';
+  const coverImageFile = getFile(formData, 'coverImage');
 
   if (!title || !slug || !content) {
     return NextResponse.json({ error: '缺少必要欄位（標題、slug 或內文）。' }, { status: 400 });
+  }
+
+  if (!coverImageFile) {
+    return NextResponse.json({ error: '請上傳文章首圖。' }, { status: 400 });
+  }
+
+  const { publicUrl, error: uploadError } = await uploadCoverImage(coverImageFile, slug);
+  if (uploadError || !publicUrl) {
+    return NextResponse.json({ error: uploadError }, { status: 500 });
   }
 
   const { data, error } = await supabaseAdmin
@@ -97,8 +153,8 @@ export async function POST(req: Request) {
     .insert({
       title,
       slug,
-      excerpt: excerpt ?? null,
-      cover_image: coverImage ?? null,
+      excerpt: excerpt || null,
+      cover_image: publicUrl,
       content,
       published_at: publishedAt ? new Date(publishedAt).toISOString() : new Date().toISOString(),
       is_published: isPublished,
@@ -118,17 +174,18 @@ export async function PUT(req: Request) {
   const authError = requireAdmin(req);
   if (authError) return authError;
 
-  const payload = await req.json();
-  const {
-    id,
-    title,
-    slug,
-    excerpt,
-    coverImage,
-    content,
-    publishedAt,
-    isPublished = true,
-  } = payload;
+  const formData = await req.formData();
+
+  const idString = getString(formData, 'id');
+  const id = idString ? Number(idString) : null;
+  const title = getString(formData, 'title');
+  const slug = getString(formData, 'slug');
+  const excerpt = getString(formData, 'excerpt');
+  const content = getString(formData, 'content');
+  const publishedAt = getString(formData, 'publishedAt');
+  const isPublished = getString(formData, 'isPublished') !== 'false';
+  const existingCoverImage = getString(formData, 'existingCoverImage');
+  const coverImageFile = getFile(formData, 'coverImage');
 
   if (!id) {
     return NextResponse.json({ error: '缺少文章 ID。' }, { status: 400 });
@@ -138,13 +195,27 @@ export async function PUT(req: Request) {
     return NextResponse.json({ error: '缺少必要欄位（標題、slug 或內文）。' }, { status: 400 });
   }
 
+  let coverImageUrl = existingCoverImage;
+
+  if (coverImageFile) {
+    const { publicUrl, error: uploadError } = await uploadCoverImage(coverImageFile, slug);
+    if (uploadError || !publicUrl) {
+      return NextResponse.json({ error: uploadError }, { status: 500 });
+    }
+    coverImageUrl = publicUrl;
+  }
+
+  if (!coverImageUrl) {
+    return NextResponse.json({ error: '請上傳文章首圖。' }, { status: 400 });
+  }
+
   const { data, error } = await supabaseAdmin
     .from('posts')
     .update({
       title,
       slug,
-      excerpt: excerpt ?? null,
-      cover_image: coverImage ?? null,
+      excerpt: excerpt || null,
+      cover_image: coverImageUrl,
       content,
       published_at: publishedAt ? new Date(publishedAt).toISOString() : new Date().toISOString(),
       is_published: isPublished,

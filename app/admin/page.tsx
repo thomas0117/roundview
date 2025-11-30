@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { FormEvent, useState } from 'react';
 
 type AdminPost = {
@@ -13,11 +14,19 @@ type AdminPost = {
   isPublished: boolean;
 };
 
-const initialForm = {
+type AdminForm = {
+  title: string;
+  slug: string;
+  excerpt: string;
+  content: string;
+  publishedAt: string;
+  isPublished: boolean;
+};
+
+const initialForm: AdminForm = {
   title: '',
   slug: '',
   excerpt: '',
-  coverImage: '',
   content: '',
   publishedAt: '',
   isPublished: true,
@@ -26,14 +35,21 @@ const initialForm = {
 export default function AdminPage() {
   const [adminToken, setAdminToken] = useState('');
   const [form, setForm] = useState(initialForm);
+  const [coverPreview, setCoverPreview] = useState('');
+  const [coverFile, setCoverFile] = useState<File | null>(null);
   const [status, setStatus] = useState<null | { type: 'success' | 'error'; message: string }>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [posts, setPosts] = useState<AdminPost[]>([]);
   const [editingId, setEditingId] = useState<number | null>(null);
 
-  const handleChange = (field: keyof typeof form, value: string | boolean) => {
+  const handleChange = <K extends keyof AdminForm>(field: K, value: AdminForm[K]) => {
     setForm((prev) => ({ ...prev, [field]: value }));
+  };
+
+  const handleCoverChange = (file: File | null) => {
+    setCoverFile(file);
+    setCoverPreview(file ? URL.createObjectURL(file) : '');
   };
 
   const ensureToken = () => {
@@ -72,22 +88,42 @@ export default function AdminPage() {
     event.preventDefault();
     if (!ensureToken()) return;
 
+    if (!coverFile && !coverPreview) {
+      setStatus({ type: 'error', message: '請先上傳文章首圖。' });
+      return;
+    }
+
     setStatus(null);
     setIsSubmitting(true);
 
-    const payload = {
-      ...form,
-      id: editingId ?? undefined,
-    };
+    const formData = new FormData();
+    formData.append('title', form.title);
+    formData.append('slug', form.slug);
+    formData.append('excerpt', form.excerpt);
+    formData.append('content', form.content);
+    formData.append('isPublished', String(form.isPublished));
+
+    if (form.publishedAt) {
+      formData.append('publishedAt', form.publishedAt);
+    }
+
+    if (editingId) {
+      formData.append('id', editingId.toString());
+    }
+
+    if (coverFile) {
+      formData.append('coverImage', coverFile);
+    } else if (coverPreview) {
+      formData.append('existingCoverImage', coverPreview);
+    }
 
     try {
       const res = await fetch('/api/admin/posts', {
         method: editingId ? 'PUT' : 'POST',
         headers: {
-          'Content-Type': 'application/json',
           'x-admin-token': adminToken,
         },
-        body: JSON.stringify(payload),
+        body: formData,
       });
 
       const body = await res.json();
@@ -101,6 +137,8 @@ export default function AdminPage() {
       });
       setForm(initialForm);
       setEditingId(null);
+      setCoverPreview('');
+      setCoverFile(null);
       fetchPosts();
     } catch (err) {
       setStatus({ type: 'error', message: err instanceof Error ? err.message : '發生未知錯誤' });
@@ -115,11 +153,12 @@ export default function AdminPage() {
       title: post.title,
       slug: post.slug,
       excerpt: post.excerpt ?? '',
-      coverImage: post.coverImage ?? '',
       content: post.content,
       publishedAt: post.publishedAt ? new Date(post.publishedAt).toISOString().slice(0, 16) : '',
       isPublished: post.isPublished,
     });
+    setCoverPreview(post.coverImage ?? '');
+    setCoverFile(null);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
@@ -156,6 +195,8 @@ export default function AdminPage() {
   const resetForm = () => {
     setEditingId(null);
     setForm(initialForm);
+    setCoverPreview('');
+    setCoverFile(null);
     setStatus(null);
   };
 
@@ -224,14 +265,39 @@ export default function AdminPage() {
           </label>
 
           <label className="admin-label">
-            首圖（URL）
+            首圖（上傳圖片）
             <input
-              type="text"
+              type="file"
+              accept="image/*"
               className="admin-input"
-              value={form.coverImage}
-              onChange={(e) => handleChange('coverImage', e.target.value)}
+              onChange={(e) => handleCoverChange(e.target.files?.[0] ?? null)}
+              required={!editingId}
             />
           </label>
+
+          {coverPreview && (
+            <div className="admin-cover-preview">
+              <p className="admin-hint">預覽</p>
+              <Image
+                src={coverPreview}
+                alt="文章首圖預覽"
+                width={640}
+                height={360}
+                className="admin-cover-image"
+                unoptimized
+              />
+              {editingId && (
+                <button
+                  type="button"
+                  className="btn-link"
+                  onClick={() => handleCoverChange(null)}
+                  style={{ marginTop: '0.5rem' }}
+                >
+                  更換首圖
+                </button>
+              )}
+            </div>
+          )}
 
           <label className="admin-label">
             內文
