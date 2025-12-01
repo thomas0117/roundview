@@ -57,8 +57,9 @@ export default function AdminPage() {
   const handleChange = <K extends keyof AdminForm>(field: K, value: AdminForm[K]) => {
     setForm((prev) => {
       if (field === 'title' && !editingId) {
-        const generatedSlug = slugify(String(value));
-        return { ...prev, title: value, slug: generatedSlug };
+        const newTitle = value as AdminForm['title'];
+        const generatedSlug = slugify(newTitle);
+        return { ...prev, title: newTitle, slug: generatedSlug };
       }
       return { ...prev, [field]: value };
     });
