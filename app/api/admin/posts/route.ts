@@ -10,6 +10,7 @@ type PostRow = {
   excerpt: string | null;
   cover_image: string | null;
   content: string;
+  tags: string[] | null;
   published_at: string | null;
   is_published: boolean;
 };
@@ -21,6 +22,7 @@ type AdminPost = {
   excerpt: string | null;
   coverImage: string | null;
   content: string;
+  tags: string[] | null;
   publishedAt: string | null;
   isPublished: boolean;
 };
@@ -45,6 +47,7 @@ function normalizePost(row: PostRow): AdminPost {
     excerpt: row.excerpt,
     coverImage: row.cover_image,
     content: row.content,
+    tags: row.tags,
     publishedAt: row.published_at,
     isPublished: row.is_published,
   };
@@ -71,6 +74,24 @@ function getString(formData: FormData, key: string) {
 function getFile(formData: FormData, key: string) {
   const value = formData.get(key);
   return value instanceof File && value.size > 0 ? value : null;
+}
+
+function slugify(value: string) {
+  return value
+    .trim()
+    .toLowerCase()
+    .replace(/[^a-z0-9\u4e00-\u9fa5]+/gi, '-')
+    .replace(/^-+|-+$/g, '')
+    .replace(/-{2,}/g, '-');
+}
+
+function parseTags(raw: string | null) {
+  if (!raw) return null;
+  const tags = raw
+    .split(',')
+    .map((tag) => tag.trim())
+    .filter(Boolean);
+  return tags.length ? tags : null;
 }
 
 function generateCoverPath(slug: string, fileName: string) {
@@ -126,16 +147,23 @@ export async function POST(req: Request) {
   const slug = getString(formData, 'slug');
   const excerpt = getString(formData, 'excerpt');
   const content = getString(formData, 'content');
+  const tags = parseTags(getString(formData, 'tags'));
   const publishedAt = getString(formData, 'publishedAt');
   const isPublished = getString(formData, 'isPublished') !== 'false';
   const coverImageFile = getFile(formData, 'coverImage');
 
-  if (!title || !slug || !content) {
-    return NextResponse.json({ error: '缺少必要欄位（標題、slug 或內文）。' }, { status: 400 });
+  if (!title || !content) {
+    return NextResponse.json({ error: '缺少必要欄位（標題或內文）。' }, { status: 400 });
   }
 
   if (!coverImageFile) {
     return NextResponse.json({ error: '請上傳文章首圖。' }, { status: 400 });
+  }
+
+  const slugCandidate = slugify(slug || title);
+
+  if (!slugCandidate) {
+    return NextResponse.json({ error: '無法產生 slug，請確認標題內容。' }, { status: 400 });
   }
 
   const { publicUrl, error: uploadError } = await uploadCoverImage(coverImageFile, slug);
@@ -147,10 +175,11 @@ export async function POST(req: Request) {
     .from('posts')
     .insert({
       title,
-      slug,
+      slug: slugCandidate,
       excerpt: excerpt || null,
       cover_image: publicUrl,
       content,
+      tags,
       published_at: publishedAt ? new Date(publishedAt).toISOString() : new Date().toISOString(),
       is_published: isPublished,
     })
@@ -177,6 +206,7 @@ export async function PUT(req: Request) {
   const slug = getString(formData, 'slug');
   const excerpt = getString(formData, 'excerpt');
   const content = getString(formData, 'content');
+  const tags = parseTags(getString(formData, 'tags'));
   const publishedAt = getString(formData, 'publishedAt');
   const isPublished = getString(formData, 'isPublished') !== 'false';
   const existingCoverImage = getString(formData, 'existingCoverImage');
@@ -186,8 +216,14 @@ export async function PUT(req: Request) {
     return NextResponse.json({ error: '缺少文章 ID。' }, { status: 400 });
   }
 
-  if (!title || !slug || !content) {
-    return NextResponse.json({ error: '缺少必要欄位（標題、slug 或內文）。' }, { status: 400 });
+  if (!title || !content) {
+    return NextResponse.json({ error: '缺少必要欄位（標題或內文）。' }, { status: 400 });
+  }
+
+  const slugCandidate = slugify(slug || title);
+
+  if (!slugCandidate) {
+    return NextResponse.json({ error: '無法產生 slug，請確認標題內容。' }, { status: 400 });
   }
 
   let coverImageUrl = existingCoverImage;
@@ -208,10 +244,11 @@ export async function PUT(req: Request) {
     .from('posts')
     .update({
       title,
-      slug,
+      slug: slugCandidate,
       excerpt: excerpt || null,
       cover_image: coverImageUrl,
       content,
+      tags,
       published_at: publishedAt ? new Date(publishedAt).toISOString() : new Date().toISOString(),
       is_published: isPublished,
     })

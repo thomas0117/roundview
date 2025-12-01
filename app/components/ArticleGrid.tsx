@@ -58,6 +58,10 @@ export default function ArticleGrid({ posts }: ArticleGridProps) {
               <h3 className="article-card-grid__title">{post.title}</h3>
 
               {excerpt && <p className="article-card-grid__excerpt">{excerpt}</p>}
+
+              <div className="article-card-grid__footer">
+                <span className="article-card-grid__readmore">閱讀全文 →</span>
+              </div>
             </div>
           </Link>
         );
