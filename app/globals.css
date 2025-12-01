@@ -672,6 +672,14 @@ body {
   color: var(--text-main);
 }
 
+.article-detail-content.prose :where(h1):not(:where([class~="not-prose"] *)) {
+  color: #173d5a;
+  font-weight: 800;
+  line-height: 1.25;
+  margin-top: 0;
+  margin-bottom: 1.25rem;
+}
+
 .article-detail-content.prose :where(h2):not(:where([class~="not-prose"] *)) {
   color: #173d5a;
   font-weight: 700;
