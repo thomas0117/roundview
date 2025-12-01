@@ -10,6 +10,7 @@ type AdminPost = {
   excerpt: string | null;
   coverImage: string | null;
   content: string;
+  tags: string[] | null;
   publishedAt: string | null;
   isPublished: boolean;
 };
@@ -18,6 +19,7 @@ type AdminForm = {
   title: string;
   slug: string;
   excerpt: string;
+  tags: string;
   content: string;
   publishedAt: string;
   isPublished: boolean;
@@ -27,6 +29,7 @@ const initialForm: AdminForm = {
   title: '',
   slug: '',
   excerpt: '',
+  tags: '',
   content: '',
   publishedAt: '',
   isPublished: true,
@@ -43,8 +46,23 @@ export default function AdminPage() {
   const [posts, setPosts] = useState<AdminPost[]>([]);
   const [editingId, setEditingId] = useState<number | null>(null);
 
+  const slugify = (value: string) =>
+    value
+      .trim()
+      .toLowerCase()
+      .replace(/[^a-z0-9\u4e00-\u9fa5]+/gi, '-')
+      .replace(/^-+|-+$/g, '')
+      .replace(/-{2,}/g, '-');
+
   const handleChange = <K extends keyof AdminForm>(field: K, value: AdminForm[K]) => {
-    setForm((prev) => ({ ...prev, [field]: value }));
+    setForm((prev) => {
+      if (field === 'title' && !editingId) {
+        const newTitle = value as AdminForm['title'];
+        const generatedSlug = slugify(newTitle);
+        return { ...prev, title: newTitle, slug: generatedSlug };
+      }
+      return { ...prev, [field]: value };
+    });
   };
 
   const handleCoverChange = (file: File | null) => {
@@ -98,8 +116,11 @@ export default function AdminPage() {
 
     const formData = new FormData();
     formData.append('title', form.title);
-    formData.append('slug', form.slug);
+    if (form.slug) {
+      formData.append('slug', form.slug);
+    }
     formData.append('excerpt', form.excerpt);
+    formData.append('tags', form.tags);
     formData.append('content', form.content);
     formData.append('isPublished', String(form.isPublished));
 
@@ -153,6 +174,7 @@ export default function AdminPage() {
       title: post.title,
       slug: post.slug,
       excerpt: post.excerpt ?? '',
+      tags: post.tags?.join(', ') ?? '',
       content: post.content,
       publishedAt: post.publishedAt ? new Date(post.publishedAt).toISOString().slice(0, 16) : '',
       isPublished: post.isPublished,
@@ -244,23 +266,23 @@ export default function AdminPage() {
           </label>
 
           <label className="admin-label">
-            Slug（網址）
-            <input
-              type="text"
-              className="admin-input"
-              value={form.slug}
-              onChange={(e) => handleChange('slug', e.target.value)}
-              required
-            />
-          </label>
-
-          <label className="admin-label">
             摘要
             <textarea
               className="admin-textarea"
               value={form.excerpt}
               onChange={(e) => handleChange('excerpt', e.target.value)}
               rows={3}
+            />
+          </label>
+
+          <label className="admin-label">
+            標籤（以逗號分隔）
+            <input
+              type="text"
+              className="admin-input"
+              value={form.tags}
+              onChange={(e) => handleChange('tags', e.target.value)}
+              placeholder="例如：環境、保育、新聞"
             />
           </label>
 
@@ -362,6 +384,9 @@ export default function AdminPage() {
                     <p className="article-meta">
                       發布時間：{new Date(post.publishedAt).toLocaleString('zh-TW')}
                     </p>
+                  )}
+                  {post.tags && post.tags.length > 0 && (
+                    <p className="article-meta">標籤：{post.tags.join('、')}</p>
                   )}
                   {post.excerpt && <p className="article-excerpt">{post.excerpt}</p>}
                 </div>

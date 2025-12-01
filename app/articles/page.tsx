@@ -1,6 +1,6 @@
 // app/articles/page.tsx
 import { supabase } from '@/lib/supabaseClient';
-import ArticleGrid from '../components/ArticleGrid';
+import ArticleListWithFilter from '../components/ArticleListWithFilter';
 
 export const revalidate = 60; // ISR：60 秒重新抓一次（可調）
 
@@ -34,7 +34,7 @@ export default async function ArticlesPage() {
     <section className="section articles-section">
       <h1 className="section-title">最新文章</h1>
 
-      <ArticleGrid posts={posts} />
+      <ArticleListWithFilter posts={posts} />
     </section>
   );
 }
