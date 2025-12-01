@@ -166,7 +166,7 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: '無法產生 slug，請確認標題內容。' }, { status: 400 });
   }
 
-  const { publicUrl, error: uploadError } = await uploadCoverImage(coverImageFile, slug);
+  const { publicUrl, error: uploadError } = await uploadCoverImage(coverImageFile, slugCandidate);
   if (uploadError || !publicUrl) {
     return NextResponse.json({ error: uploadError }, { status: 500 });
   }
@@ -229,7 +229,7 @@ export async function PUT(req: Request) {
   let coverImageUrl = existingCoverImage;
 
   if (coverImageFile) {
-    const { publicUrl, error: uploadError } = await uploadCoverImage(coverImageFile, slug);
+    const { publicUrl, error: uploadError } = await uploadCoverImage(coverImageFile, slugCandidate);
     if (uploadError || !publicUrl) {
       return NextResponse.json({ error: uploadError }, { status: 500 });
     }
