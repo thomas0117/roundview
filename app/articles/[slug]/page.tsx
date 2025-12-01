@@ -76,7 +76,7 @@ export default async function ArticlePage({ params }: { params: Promise<ArticleP
           </div>
         )}
 
-        <div className="article-detail-content">
+        <div className="article-detail-content prose prose-slate max-w-none">
           {post.content?.split('\n').map((p: string, idx: number) => (
             <p key={idx}>{p}</p>
           ))}
