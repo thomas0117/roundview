@@ -11,6 +11,11 @@ export default function HomePage() {
               用易讀的圖表與專題文章，整理台灣與世界的氣候變遷、能源轉型與環境保育資訊。
               依照主題切分成多個專屬分頁，方便探索與 SEO 擴充。
             </p>
+            <div className="hero-badges">
+              <span className="pill pill-spotlight">靈感來自 C40 Cities 的綠色城市能量</span>
+              <span className="pill pill-live">Live · 即時追蹤指標</span>
+              <span className="pill pill-trend">Trend · 行動脈動</span>
+            </div>
             <div className="hero-actions">
               <Link href="/overview" className="btn-primary">
                 立即查看總覽
@@ -28,6 +33,11 @@ export default function HomePage() {
               <li>⚡ 國家比較：政策、目標與進展</li>
               <li>📰 專題文章：以故事化整理關鍵議題</li>
             </ul>
+            <div className="hero-card-foot">
+              <span className="tag tag-animated">透明公開</span>
+              <span className="tag tag-animated">行動優先</span>
+              <span className="tag tag-animated">協作城市</span>
+            </div>
           </div>
         </div>
       </section>
@@ -40,35 +50,35 @@ export default function HomePage() {
           </div>
 
           <div className="card-grid">
-            <div className="info-card">
+            <div className="info-card info-card-lively">
               <h3>總覽</h3>
               <p>網站使命、資料來源與正在追蹤的焦點議題。</p>
               <Link className="btn-link" href="/overview">
                 前往 /overview
               </Link>
             </div>
-            <div className="info-card">
+            <div className="info-card info-card-lively">
               <h3>暖化指標</h3>
               <p>聚焦全球升溫、再生能源與碳匯等核心指標。</p>
               <Link className="btn-link" href="/indicators">
                 前往 /indicators
               </Link>
             </div>
-            <div className="info-card">
+            <div className="info-card info-card-lively">
               <h3>國家比較</h3>
               <p>對照台灣與國際各地的氣候行動、政策與評級。</p>
               <Link className="btn-link" href="/countries">
                 前往 /countries
               </Link>
             </div>
-            <div className="info-card">
+            <div className="info-card info-card-lively">
               <h3>專題文章</h3>
               <p>故事化解讀氣候與環境議題，持續從 Supabase 同步更新。</p>
               <Link className="btn-link" href="/articles">
                 前往 /articles
               </Link>
             </div>
-            <div className="info-card">
+            <div className="info-card info-card-lively">
               <h3>關於 ROUNDVIEW</h3>
               <p>網站願景、團隊介紹與參與方式。</p>
               <Link className="btn-link" href="/about">
