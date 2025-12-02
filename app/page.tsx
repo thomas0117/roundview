@@ -133,6 +133,25 @@ export default function HomePage() {
               <p>串聯 NGO、研究者、工程師的共編模式，確保數據、故事與設計一致對外。</p>
             </div>
           </div>
+
+          <div className="stripe-grid">
+            <div className="stripe">
+              <h4>快速導覽故事</h4>
+              <p>
+                以 <strong>白色 / 薄荷綠</strong> 交錯條帶，讓讀者能一眼看到網站能提供的情境：總覽梳理、專題亮點、互動數據。
+              </p>
+            </div>
+            <div className="stripe">
+              <h4>內容版本</h4>
+              <p>
+                每個分頁都附上 V1.0、V1.1 的假版本說明，示範未來如何在分區上標註更新批次，並保留 Changelog 區塊。
+              </p>
+            </div>
+            <div className="stripe">
+              <h4>讀者入口</h4>
+              <p>為新訪客列出「如何開始閱讀」的三步驟：1) 總覽先行 2) 追蹤指標 3) 加入社群。</p>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -192,6 +211,21 @@ export default function HomePage() {
             <div className="contrast-card dark">
               <h4>互動備註欄</h4>
               <p>在深色條帶內標示假想的解說氣泡，提醒未來將放入觀測重點與備註。</p>
+            </div>
+          </div>
+
+          <div className="stripe-grid">
+            <div className="stripe">
+              <h4>即將推出的指標</h4>
+              <p>預留「極端氣候事件、電動車普及率、再生能源拍賣」三個模組，之後會對接實際資料庫。</p>
+            </div>
+            <div className="stripe">
+              <h4>情境模式切換</h4>
+              <p>描述未來會加入「保守情境 / 積極情境 / 國際基準」切換，並顯示假想的圖表切換提示。</p>
+            </div>
+            <div className="stripe">
+              <h4>指標故事化</h4>
+              <p>每個指標都附一段 2-3 句的故事線，維持版面寬鬆、底色分明的敘事節奏。</p>
             </div>
           </div>
         </div>
@@ -255,6 +289,21 @@ export default function HomePage() {
             <div className="contrast-card dark">
               <h4>政策焦點備忘</h4>
               <p>深色條帶呈現「能源稅制」「工業減碳」「交通轉型」的假想提醒。</p>
+            </div>
+          </div>
+
+          <div className="stripe-grid">
+            <div className="stripe">
+              <h4>區域亮點</h4>
+              <p>以交錯底色列出「東亞減碳壓力」「北歐氣候韌性」「南美再生能源佈局」三段假文字。</p>
+            </div>
+            <div className="stripe">
+              <h4>數據維度</h4>
+              <p>強調未來比較項目：能源結構、碳定價、運具轉型、建築節能，並在此放上示意的待辦行列。</p>
+            </div>
+            <div className="stripe">
+              <h4>比較方法</h4>
+              <p>解釋會採用 <strong>相對進展</strong> 與 <strong>絕對排放</strong> 雙軸比較，並提供下載 CSV 的占位文字。</p>
             </div>
           </div>
         </div>
@@ -330,6 +379,21 @@ export default function HomePage() {
             <div className="contrast-card dark">
               <h4>未來規劃</h4>
               <p>提醒會新增資料 API、訂閱通知與貢獻者致謝牆，先以假內容占位。</p>
+            </div>
+          </div>
+
+          <div className="stripe-grid">
+            <div className="stripe">
+              <h4>品牌小故事</h4>
+              <p>分享 ROUNDVIEW 名稱的由來與首批貢獻者清單，以明亮底色呈現社群精神。</p>
+            </div>
+            <div className="stripe">
+              <h4>加入社群</h4>
+              <p>列出 Slack、Discord、電子報的假連結，並說明讀者可以回報資料、提案專題。</p>
+            </div>
+            <div className="stripe">
+              <h4>支持我們</h4>
+              <p>提供贊助、媒合、共筆三種支持方式，維持條帶交錯的版型方便閱讀。</p>
             </div>
           </div>
         </div>
