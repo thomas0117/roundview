@@ -114,6 +114,25 @@ export default function HomePage() {
               </div>
             </div>
           </div>
+
+          <div className="contrast-panels">
+            <div className="contrast-card dark">
+              <h4>綠色敘事路線</h4>
+              <p>每季聚焦一個核心議題，形成「深色 × 淺色」的分區故事帶，快速掌握觀點。</p>
+            </div>
+            <div className="contrast-card light">
+              <h4>資料公信力</h4>
+              <p>資料來源、更新頻率、版本紀錄都公開，並使用版本號維持透明的覆盤軸。</p>
+            </div>
+            <div className="contrast-card dark">
+              <h4>讀者導向互動</h4>
+              <p>預留互動表單、行動按鈕與收藏區，讓使用者的回饋成為下一次更新的參考。</p>
+            </div>
+            <div className="contrast-card light">
+              <h4>協作網絡</h4>
+              <p>串聯 NGO、研究者、工程師的共編模式，確保數據、故事與設計一致對外。</p>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -158,6 +177,21 @@ export default function HomePage() {
               <Link className="btn-link" href="/indicators#carbon">
                 立即查看占位資料
               </Link>
+            </div>
+          </div>
+
+          <div className="contrast-panels">
+            <div className="contrast-card dark">
+              <h4>暖化儀表板構想</h4>
+              <p>以深色底顯示趨勢折線與警示燈號，未來可切換不同情境與國際基準。</p>
+            </div>
+            <div className="contrast-card light">
+              <h4>資料更新節奏</h4>
+              <p>建立每月同步、季度回顧與年度總結的節奏，讓讀者感覺到穩定輸出。</p>
+            </div>
+            <div className="contrast-card dark">
+              <h4>互動備註欄</h4>
+              <p>在深色條帶內標示假想的解說氣泡，提醒未來將放入觀測重點與備註。</p>
             </div>
           </div>
         </div>
@@ -206,6 +240,21 @@ export default function HomePage() {
                 <span className="pill pill-live">B 級 · 逐步推進</span>
               </div>
               <Link className="btn-link" href="/countries#rating">假評級模組</Link>
+            </div>
+          </div>
+
+          <div className="contrast-panels">
+            <div className="contrast-card dark">
+              <h4>進展里程碑</h4>
+              <p>以深色卡片標記 2030、2040、2050 的假想節點，強化時間軸分段感。</p>
+            </div>
+            <div className="contrast-card light">
+              <h4>合作城市</h4>
+              <p>列出哥本哈根、雪梨、台北的示意成果，讓讀者感受到跨國網絡的比較。</p>
+            </div>
+            <div className="contrast-card dark">
+              <h4>政策焦點備忘</h4>
+              <p>深色條帶呈現「能源稅制」「工業減碳」「交通轉型」的假想提醒。</p>
             </div>
           </div>
         </div>
@@ -266,6 +315,21 @@ export default function HomePage() {
               <Link className="btn-link" href="/about#contact">
                 查看聯絡佔位
               </Link>
+            </div>
+          </div>
+
+          <div className="contrast-panels">
+            <div className="contrast-card dark">
+              <h4>ROUNDVIEW 的承諾</h4>
+              <p>每個季度公佈開發進度，並在深色區塊放上 QA、性能、安全的檢查清單。</p>
+            </div>
+            <div className="contrast-card light">
+              <h4>社群暖化</h4>
+              <p>用淺色底介紹讀者日與線上分享會，保持明亮、開放的參與氛圍。</p>
+            </div>
+            <div className="contrast-card dark">
+              <h4>未來規劃</h4>
+              <p>提醒會新增資料 API、訂閱通知與貢獻者致謝牆，先以假內容占位。</p>
             </div>
           </div>
         </div>

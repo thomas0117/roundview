@@ -59,12 +59,13 @@ body {
   background: linear-gradient(135deg, rgba(255, 255, 255, 0.98), rgba(232, 247, 239, 0.98));
   border-bottom: 1px solid var(--border-subtle);
   box-shadow: 0 6px 18px rgba(15, 23, 42, 0.06);
+  min-height: 78px;
 }
 
 .nav-inner {
   max-width: 1120px;
   margin: 0 auto;
-  padding: 0.75rem 1.25rem;
+  padding: 1.05rem 1.5rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -81,19 +82,19 @@ body {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 30px;
-  height: 30px;
+  width: 36px;
+  height: 36px;
   border-radius: 999px;
   background: radial-gradient(circle at 20% 30%, #9bf57c, #0a8f3d);
-  font-size: 1.1rem;
-  font-weight: 700;
+  font-size: 1.2rem;
+  font-weight: 800;
   color: #ffffff;
 }
 
 .logo-text {
-  font-weight: 700;
+  font-weight: 800;
   letter-spacing: 0.08em;
-  font-size: 0.9rem;
+  font-size: 1rem;
   color: #1b3a57;
 }
 
@@ -108,14 +109,16 @@ body {
   padding: 0;
   display: flex;
   gap: 1.5rem;
-  font-size: 0.9rem;
+  font-size: 1rem;
 }
 
 .nav-list a {
   color: var(--text-muted);
   text-decoration: none;
   position: relative;
-  padding-bottom: 0.25rem;
+  padding-bottom: 0.35rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
   transition: color 0.2s ease;
 }
 
@@ -396,24 +399,26 @@ body {
 }
 
 .section-band-forest {
-  background: linear-gradient(135deg, #e6fff1, #f4fffb);
+  background: linear-gradient(140deg, #0f3326, #16734b);
+  color: #e6fff2;
 }
 
 .section-band-sky {
-  background: linear-gradient(135deg, #eaf5ff, #f8fbff);
+  background: linear-gradient(135deg, #f0f6ff, #dbe8ff);
 }
 
 .section-band-cream {
-  background: linear-gradient(135deg, #fff7e6, #fffaf0);
+  background: linear-gradient(135deg, #3b2410, #6a4018);
+  color: #fff3e0;
 }
 
 .section-band-night {
-  background: linear-gradient(160deg, #0d1b2b, #0a2d3f);
+  background: linear-gradient(160deg, #0b1a2b, #0a3247);
   color: #e7f6ff;
 }
 
 .section-band-ice {
-  background: linear-gradient(135deg, #f0f6ff, #faffff);
+  background: linear-gradient(135deg, #f7fbff, #ebf9ff);
 }
 
 /* 區塊內容置中 */
@@ -441,6 +446,16 @@ body {
 
 .section-band-night .section-header p {
   color: #cfe6ff;
+}
+
+.section-band-forest .section-header h2,
+.section-band-cream .section-header h2 {
+  color: #fdfdfc;
+}
+
+.section-band-forest .section-header p,
+.section-band-cream .section-header p {
+  color: rgba(255, 255, 255, 0.86);
 }
 
 @keyframes floatOrb {
@@ -540,6 +555,43 @@ body {
 
 .band-card-compact {
   padding: 1.1rem 1.25rem;
+}
+
+.contrast-panels {
+  margin-top: 1.4rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1rem;
+}
+
+.contrast-card {
+  border-radius: 1rem;
+  padding: 1.1rem 1.2rem;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  box-shadow: 0 14px 30px rgba(15, 23, 42, 0.08);
+  backdrop-filter: blur(4px);
+}
+
+.contrast-card.light {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.96), rgba(230, 244, 255, 0.92));
+}
+
+.contrast-card.dark {
+  background: linear-gradient(135deg, rgba(8, 23, 18, 0.82), rgba(16, 61, 43, 0.86));
+  color: #eefdf4;
+  border-color: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 18px 38px rgba(0, 0, 0, 0.18);
+}
+
+.contrast-card h4 {
+  margin: 0 0 0.45rem;
+  font-size: 1rem;
+}
+
+.contrast-card p {
+  margin: 0;
+  color: inherit;
+  line-height: 1.6;
 }
 
 .info-card-lively::after {
