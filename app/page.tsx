@@ -152,6 +152,47 @@ export default function HomePage() {
               <p>為新訪客列出「如何開始閱讀」的三步驟：1) 總覽先行 2) 追蹤指標 3) 加入社群。</p>
             </div>
           </div>
+
+          <div className="band-grid">
+            <div className="band-card">
+              <h3>ROUNDVIEW 新手指南</h3>
+              <p>三分鐘快速掌握：選一個主題、收藏待看、訂閱更新。每個步驟都附上示意圖與引導箭頭。</p>
+              <ul>
+                <li>步驟 1：從總覽認識站點定位與指標分類</li>
+                <li>步驟 2：在暖化指標挑 2-3 個數據加入追蹤</li>
+                <li>步驟 3：在國家比較找到感興趣的案例後回到專題</li>
+              </ul>
+            </div>
+            <div className="band-card">
+              <h3>資料可信度說明</h3>
+              <p>預留「資料來源、更新日期、校對人」三欄，配合條帶底色呈現透明資訊。</p>
+              <div className="progress-rows">
+                <div className="progress-row">
+                  <span>來源對照</span>
+                  <div className="progress-bar">
+                    <span style={{ width: '72%' }} />
+                  </div>
+                  <span className="progress-number">72%</span>
+                </div>
+                <div className="progress-row">
+                  <span>發布紀錄</span>
+                  <div className="progress-bar">
+                    <span style={{ width: '54%' }} />
+                  </div>
+                  <span className="progress-number">54%</span>
+                </div>
+              </div>
+            </div>
+            <div className="band-card">
+              <h3>社群活動預告</h3>
+              <p>列出「資料黑客松」「城市走讀」「線上讀者會」等假活動，維持明暗分區的視覺節奏。</p>
+              <div className="pill-stack">
+                <span className="pill pill-live">10/28 線上 Demo</span>
+                <span className="pill pill-trend">11/15 讀者會</span>
+                <span className="pill pill-spotlight">12/03 黑客松</span>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -226,6 +267,41 @@ export default function HomePage() {
             <div className="stripe">
               <h4>指標故事化</h4>
               <p>每個指標都附一段 2-3 句的故事線，維持版面寬鬆、底色分明的敘事節奏。</p>
+            </div>
+          </div>
+
+          <div className="band-grid">
+            <div className="band-card">
+              <h3>溫室氣體雷達</h3>
+              <p>假想六大氣體的權重雷達圖，並標註哪幾個數值未來要優先補齊資料。</p>
+              <ul className="mini-list">
+                <li>CO₂ · 主要減碳目標</li>
+                <li>CH₄ · 農業與廢棄物場域</li>
+                <li>N₂O · 工業製程與肥料</li>
+              </ul>
+            </div>
+            <div className="band-card">
+              <h3>暖化風險情境</h3>
+              <p>提供「升溫 1.5°C / 2°C / 3°C」的假情境說明，搭配淡色背景呈現差異。</p>
+              <div className="comparison-row">
+                <div>
+                  <strong>升溫 1.5°C</strong>
+                  <p>低度衝擊、城市韌性案例</p>
+                </div>
+                <div>
+                  <strong>升溫 3°C</strong>
+                  <p>高衝擊、需要示警標籤</p>
+                </div>
+              </div>
+            </div>
+            <div className="band-card">
+              <h3>讀者自訂清單</h3>
+              <p>預留「收藏指標」與「筆記」的佔位文字，提醒未來會開放個人化追蹤。</p>
+              <div className="pill-stack">
+                <span className="pill">收藏 5 個指標</span>
+                <span className="pill">建立提醒</span>
+                <span className="pill">分享給團隊</span>
+              </div>
             </div>
           </div>
         </div>
@@ -304,6 +380,32 @@ export default function HomePage() {
             <div className="stripe">
               <h4>比較方法</h4>
               <p>解釋會採用 <strong>相對進展</strong> 與 <strong>絕對排放</strong> 雙軸比較，並提供下載 CSV 的占位文字。</p>
+            </div>
+          </div>
+
+          <div className="band-grid">
+            <div className="band-card">
+              <h3>政策節奏時間表</h3>
+              <p>以季度為單位列出假想法規、補助公告與公聽會，維持深淺交錯的視覺分隔。</p>
+              <ul>
+                <li>Q1：碳費草案公佈 · 產業座談</li>
+                <li>Q2：再生能源競標說明會 · 示範城市</li>
+                <li>Q3：運具轉型路線圖 · 大眾參與</li>
+              </ul>
+            </div>
+            <div className="band-card">
+              <h3>焦點國家故事</h3>
+              <p>假設選出三個焦點國家，提供「為何值得關注」的短段落。</p>
+              <div className="pill-stack">
+                <span className="pill pill-trend">丹麥 · 風電出口</span>
+                <span className="pill pill-live">澳洲 · 新礦區爭議</span>
+                <span className="pill pill-spotlight">台灣 · 港口轉型</span>
+              </div>
+            </div>
+            <div className="band-card">
+              <h3>下載與 API 占位</h3>
+              <p>在此提醒未來會開放 CSV、JSON 與圖表內嵌的按鈕，方便媒體引用。</p>
+              <Link className="btn-link" href="/countries#download">提前預覽導出格式</Link>
             </div>
           </div>
         </div>
@@ -394,6 +496,41 @@ export default function HomePage() {
             <div className="stripe">
               <h4>支持我們</h4>
               <p>提供贊助、媒合、共筆三種支持方式，維持條帶交錯的版型方便閱讀。</p>
+            </div>
+          </div>
+
+          <div className="band-grid">
+            <div className="band-card">
+              <h3>工作方式</h3>
+              <p>描述站點用「雙週沖刺 + 月度回顧」的節奏運作，並在每次釋出時附上透明的 Change Log。</p>
+              <ul>
+                <li>雙週：前端版面 / 指標模型更新</li>
+                <li>月度：社群回饋整理 · 體驗測試</li>
+                <li>季度：方向校正與合作夥伴對齊</li>
+              </ul>
+            </div>
+            <div className="band-card">
+              <h3>教學計畫</h3>
+              <p>先放上「資料視覺化工作坊」「開放資料教室」的佔位，後續會換成實際活動連結。</p>
+              <div className="pill-stack">
+                <span className="pill">資料清理 101</span>
+                <span className="pill">故事線設計</span>
+                <span className="pill">開源貢獻入門</span>
+              </div>
+            </div>
+            <div className="band-card">
+              <h3>社群回饋牆</h3>
+              <p>展示假想的感謝名單與留言，強調明亮底色與條帶交錯的社群氛圍。</p>
+              <div className="stripe-grid">
+                <div className="stripe">
+                  <h4>來自讀者 A</h4>
+                  <p>「期待看到更多城市案例，下次更新想看電力資料！」</p>
+                </div>
+                <div className="stripe">
+                  <h4>來自夥伴 B</h4>
+                  <p>「樂於協助資料校對，這個版面很清楚！」</p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
